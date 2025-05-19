@@ -59,19 +59,19 @@
                             <a class="nav-link" href="home.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Guru</a>
+                            <a class="nav-link" href="guru.html">Guru</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pengumuman</a>
+                            <a class="nav-link" href="pengumuman.html">Pengumuman</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Download</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Gallery</a>
+                            <a class="nav-link" href="galerry.html">Gallery</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
@@ -244,6 +244,11 @@
     </div>
 </footer>
 
+<!-- Admin WA -->
+<a href="https://wa.me/6281234567890" target="_blank" class="student-whatsapp-button">
+    <img src="admin-wa.png" alt="Gabung SMA Sanjaya Nanggulan" class="student-image">
+</a>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -251,24 +256,46 @@
         const topBar = document.getElementById('topBar');
         const navbarContainer = document.getElementById('navbarContainer');
     
+        // Function to check if we're on mobile
+        function isMobile() {
+            return window.innerWidth <= 576;
+        }
+    
         window.addEventListener('scroll', function () {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
-            if (scrollTop > lastScrollTop) {
-                // Scroll ke bawah - sembunyikan top bar
-                topBar.style.display = 'block';
-                navbarContainer.classList.add('navbar-scrolled');
+            if (isMobile()) {
+                // Mobile behavior: change margin-top when scrolled
+                if (scrollTop > 50) {
+                    navbarContainer.classList.add('navbar-scrolled-mobile');
+                } else {
+                    navbarContainer.classList.remove('navbar-scrolled-mobile');
+                }
             } else {
-                // Scroll ke atas - tampilkan top bar
-                if (scrollTop === 0) {
-                    topBar.style.transform = 'translateY(0)';
-                    navbarContainer.classList.remove('navbar-scrolled');
+                // Desktop behavior: original logic
+                if (scrollTop > lastScrollTop) {
+                    // Scroll ke bawah - sembunyikan top bar
+                    topBar.style.display = 'block';
+                    navbarContainer.classList.add('navbar-scrolled');
+                } else {
+                    // Scroll ke atas - tampilkan top bar
+                    if (scrollTop === 0) {
+                        topBar.style.transform = 'translateY(0)';
+                        navbarContainer.classList.remove('navbar-scrolled');
+                    }
                 }
             }
     
             lastScrollTop = scrollTop;
         });
-
+    
+        // Reset mobile classes on resize
+        window.addEventListener('resize', function() {
+            if (!isMobile()) {
+                navbarContainer.classList.remove('navbar-scrolled-mobile');
+            }
+        });
+    
         // Auto carousel cycle
         document.addEventListener('DOMContentLoaded', function() {
             var carousel = new bootstrap.Carousel(document.getElementById('carousel'), {
@@ -276,6 +303,6 @@
                 pause: false
             });
         });
-    </script>
+</script>
 </body>
 </html>
